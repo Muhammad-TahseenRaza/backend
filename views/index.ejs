@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>URL Shortener</title>
+
+    <link rel="stylesheet" href="01.style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="container">
+
+        <% if(user){ %>
+            <h2 class="log-in">You are logged in</h2>
+        <% }else{ %>
+            <h2 class="not-log-in">You are not logged in</h2>
+        <% } %>
+
+        <h1 class="text">URL Shortener</h1>
+
+
+        <!-- form tag -->
+
+        <form class="url-form" action="/submit" method="POST">
+
+            <div class="comp-url">
+                <label for="url">Enter URL:</label>
+                <input type="url" name="url" id="url">
+            </div>
+
+            <div class="comp-url">
+                <label for="shortUrl">Custom Short URL (Optional):</label>
+                <input type="text" name="shortCode" id="shortUrl">
+            </div>
+
+            <% if(errors){ %>
+                <% errors.forEach((error)=>{ %>
+                    <p class="flash-message">
+                        <%= error %>
+                    </p>
+                <% }) %>
+            <% } %>
+
+            <div class="submit-btn">
+                <button class="submit">Shorten</button>
+            </div>
+
+        </form>
+
+
+        <!-- dynamic data -->
+
+        <h1 class="short-text">Shortened URLs</h1>
+
+        <ul>
+
+            <% links.forEach(({url, shortCode, id})=>{ %>
+
+                <% let truncatedUrl=url.length> 30 ? url.slice(0, 30) + '...' : url; %>
+
+                    <li>
+
+                        <div class="shortener-content">
+                            <a href="/<%= shortCode %>" target="_blank">
+                                <%= host %>/<%= shortCode %>
+                            </a>
+                            <p>
+                                <%= truncatedUrl %>
+                            </p>
+                        </div>
+
+
+                        <div class="shortener-icon">
+                            <button type="button" class="copy-btn"
+                                data-link="<%= host %>/<%= shortCode %>">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <a href="/edit/<%= id %>">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <form action="/delete/<%= id %>" method="post">
+                                <button>
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </li>
+
+            <% }) %>
+
+        </ul>
+
+    </div>
+
+    <% if (totalPages > 1) { %>
+  <div class="pagination">
+    <!-- Previous Button -->
+    <% if (currentPage > 1) { %>
+      <a href="?page=<%= currentPage - 1 %>" class="page-link">Previous</a>
+    <% } else { %>
+      <span class="page-link disabled">Previous</span>
+    <% } %>
+
+    <!-- First Page -->
+    <% if (currentPage > 3) { %>
+      <a href="?page=1" class="page-link">1</a>
+      <% if (currentPage > 4) { %>
+        <span class="page-link">...</span>
+      <% } %>
+    <% } %>
+
+    <!-- Middle Pages (window of 5) -->
+    <% 
+      let start = Math.max(1, currentPage - 2);
+      let end = Math.min(totalPages, currentPage + 2);
+      for (let i = start; i <= end; i++) {
+    %>
+      <% if (i === currentPage) { %>
+        <span class="page-link current"><%= i %></span>
+      <% } else { %>
+        <a href="?page=<%= i %>" class="page-link"><%= i %></a>
+      <% } %>
+    <% } %>
+
+    <!-- Last Page -->
+    <% if (currentPage < totalPages - 2) { %>
+      <% if (currentPage < totalPages - 3) { %>
+        <span class="page-link">...</span>
+      <% } %>
+      <a href="?page=<%= totalPages %>" class="page-link"><%= totalPages %></a>
+    <% } %>
+
+    <!-- Next Button -->
+    <% if (currentPage < totalPages) { %>
+      <a href="?page=<%= currentPage + 1 %>" class="page-link">Next</a>
+    <% } else { %>
+      <span class="page-link disabled">Next</span>
+    <% } %>
+  </div>
+<% } %>
+
+<script src="01.script.js"></script>
+
+</body>
+
+</html>

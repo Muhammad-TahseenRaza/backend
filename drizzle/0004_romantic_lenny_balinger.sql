@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `isEmailValid` boolean DEFAULT false NOT NULL;

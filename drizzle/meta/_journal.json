@@ -1,0 +1,90 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1758642655854,
+      "tag": "0000_elite_bloodstrike",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1758652917139,
+      "tag": "0001_condemned_darkstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1758727106121,
+      "tag": "0002_abandoned_vision",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1758785480730,
+      "tag": "0003_lush_red_wolf",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1758819636029,
+      "tag": "0004_romantic_lenny_balinger",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1758819692941,
+      "tag": "0005_worried_shriek",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1758826439705,
+      "tag": "0006_round_ravenous",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1758826544782,
+      "tag": "0007_lonely_wong",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1758903403790,
+      "tag": "0008_parched_cammi",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1758995901360,
+      "tag": "0009_ambitious_blue_blade",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1758996058220,
+      "tag": "0010_fantastic_guardsmen",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1759086966900,
+      "tag": "0011_boring_dark_beast",
+      "breakpoints": true
+    }
+  ]
+}

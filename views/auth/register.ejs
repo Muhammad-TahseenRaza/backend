@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            min-width: 750px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            padding: 5rem;
+            gap: 10px;
+        }
+
+        .image-container {
+            width: 50%;
+            order: 1;
+        }
+
+        .image-container figure {
+            & img {
+                width: 100%;
+            }
+
+            & figcaption {
+                text-align: center;
+                padding-top: 2rem;
+            }
+        }
+
+        .login-container {
+            width: 50%;
+            position: relative;
+
+            & h2 {
+                font-size: 2rem;
+            }
+            & form .flash-message{
+                margin-top: 10px;
+                padding: 5px 10px;
+                color: red;
+                background-color: rgb(238, 188, 188);
+            }
+
+            & form input:first-child,
+            input:nth-child(2), input:nth-child(3) {
+                border: none;
+                border-bottom: 1px solid gray;
+                outline: none;
+                margin-top: 2rem;
+                padding-left: 20px;
+                width: 100%;
+                font-size: 1.2rem;
+
+                &::placeholder {
+                    font-size: 1.2rem;
+                }
+            }
+
+            & form input:nth-child(4) {
+                margin-top: 2rem;
+                margin-right: 1rem;
+
+                &:hover{
+                    cursor: pointer;
+                }
+
+            }
+
+            & .login-button {
+                margin-top: 2.5rem;
+                padding: 10px 30px;
+                background-color: rgb(85, 176, 212);
+                color: white;
+                border: none;
+                border-radius: 5px;
+
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+
+            & .login-with {
+                position: absolute;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+
+                & .login-with-image {
+                    display: flex;
+                    gap: 1rem;
+                    margin-left: 1rem;
+
+                    & .box {
+                        width: 2rem;
+                        height: 2rem;
+                        border-radius: 5px;
+                    }
+
+                    & .box1{
+                        background-color: rgb(76, 76, 117);
+                    }
+                    & .box2{
+                        background-color: rgb(61, 166, 252);
+                    }
+                    & .box3{
+                        background-color: rgb(252, 61, 61);
+                    }
+                }
+            }
+        }
+
+        h3 {
+            margin-block: 2rem;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <%- include('../partials/header.ejs') %>
+
+        <section class="container">
+            <div class="image-container">
+                <figure>
+                    <img src="images/signup-image.jpg" alt="sign in image">
+                    <figcaption>Create an account</figcaption>
+                </figure>
+            </div>
+            <div class="login-container">
+                <h2>Sign up</h2>
+                <form action="/register" method="POST">
+                    <input type="text" placeholder="Your Name" name="name" style="display: block;">
+                    <input type="email" placeholder="Your Email" name="email" style="display: block;">
+                    <input type="password" placeholder="Password" name="password" style="display: block;">
+
+                    <input type="checkbox" id="checkBox" name="checkBox"><label for="checkBox">I agree all statements in Terms of services</label>
+
+                    <% if(errors){ %>
+                        <% errors.forEach((error)=>{ %>
+                            <p class="flash-message"> <%= error %> </p>
+                        <% }) %>
+                    <% } %>
+
+                    <button class="login-button" style="display: block;">Register</button>
+                </form>
+                </div>
+            </div>
+        </section>
+
+</body>
+
+</html>

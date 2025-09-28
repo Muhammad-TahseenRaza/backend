@@ -1,0 +1,185 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #eee;
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    font-size: 1.1rem;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.container{
+    width: 80%;
+    background: white;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+
+    & .log-in{
+        color: green;
+        background-color: rgb(191, 223, 191);
+        width: 200px;
+        position: relative;
+        left: 2rem;
+        top: 2rem;
+    }
+    & .not-log-in{
+        color: rgb(231, 174, 105);
+        background-color: rgb(241, 230, 204);
+        width: 240px;
+        position: relative;
+        left: 2rem;
+        top: 2rem;
+    }
+}
+
+.container .text{
+    text-align: center;
+    padding-top: 50px;
+}
+
+.url-form{
+    margin: 20px 30px;
+}
+
+form .flash-message{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-left: 3px solid red;
+    padding: 5px 10px;
+    color: red;
+    background-color: rgb(238, 188, 188);
+}
+
+.url-form .comp-url{
+    display: flex;
+    flex-direction: column;
+}
+
+.comp-url input{
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: 2px solid rgb(209, 209, 209);
+    border-radius: 8px;
+    margin: 10px 0 20px;
+}
+
+.submit-btn{
+
+    & button{
+        width: 100%;
+        padding: 12px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: rgb(76, 148, 242);
+        color: white;
+        font-size: 1.3rem;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+}
+
+.short-text{
+    text-align: left;
+    padding: 20px 2rem 40px 2rem;
+}
+
+ul{
+    list-style: none;
+    padding-inline: 2rem;
+    padding-bottom: 30px;
+}
+
+/* ul li{
+    padding-block: 5px;
+}
+
+ul li p{
+    padding-block: 5px;
+    border-bottom: 1px solid rgb(210, 202, 202);
+
+    
+} */
+
+ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    border-bottom: 1px solid rgb(178, 174, 174);
+}
+
+ul li .shortener-content a{
+    display: block;
+    margin-top: 10px;
+}
+
+ul li p{
+    padding-block: 5px;
+}
+
+ul li .shortener-icon{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.fa-trash{
+    color: red;
+}
+
+.fa-copy{
+    color: green;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 5px;
+}
+
+.page-link {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  color: #333;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.page-link:hover:not(.current):not(.disabled) {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+.page-link.current {
+  background-color: #4a89dc;
+  color: white;
+  border-color: #4a89dc;
+  cursor: default;
+}
+
+.page-link.disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.ellipsis {
+  margin: 0 5px;
+}
+
+#avatar-preview-img {
+  width: 15rem;
+  height: 12rem;
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `users` RENAME COLUMN `isEmailValid` TO `is_email_valid`;
