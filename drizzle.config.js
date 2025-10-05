@@ -1,10 +1,16 @@
 import { defineConfig } from 'drizzle-kit';
+import dotenv from "dotenv";
+dotenv.config();
 
 export default defineConfig({
   out: './drizzle',
   schema: './drizzle/schema.js',
   dialect: 'mysql',
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    host: 'localhost',    // Docker host ke liye
+    port: 3307,          // Tumhara mapped port
+    user: 'root',
+    password: 'Kingkokl9@',
+    database: 'url_shortener',
   },
 });

@@ -1,8 +1,10 @@
+import { fileURLToPath } from 'url';
 import { ACCESS_TOKEN_MAX_AGE, OAUTH_EXCHANGE_EXPIRY, REFRESH_TOKEN_MAX_AGE } from "../config/constants.js";
 import { sendEmail } from "../lib/send-email.js";
 import { checkUserByEmail, checkUserById, clearResetPasswordToken, clearSession, clearVerifyEmailTokens, createAccessToken, createRandomToken, createRefreshToken, createResetPasswordLink, createSession, createUser, createUserWithOauth, createVerifyEmailLink, findVerificationEmailToken, getResetPasswordToken, getShortLinkByUserId, getUserWithOauthId, hashedPassword, insertUserNameToDB, insertVerifyEmailToken, linkUserWithOauth, updateUserPassword, verifyHashPassword, verifyUserEmailAndUpdate } from "../models/02.auth.model.js";
 import { loginSchema, passwordSchema, registerSchema, tokenSchema, verifyResetPasswordSchema } from "../validators/02.auth.validator.js";
 import path from 'path';
+import { dirname } from 'path';
 import fs from 'fs/promises';
 import ejs from 'ejs';
 import mjml2html from 'mjml';
@@ -11,6 +13,11 @@ import { getHtmlFromMjmlTemplate } from "../lib/get-html-from-mjml.js";
 import { decodeIdToken, generateCodeVerifier, generateState } from 'arctic';
 import { google } from "../lib/oauth/google.js";
 import { github } from "../lib/oauth/github.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+console.log('Resolved path:', __dirname);
+
 
 export async function getLoginPage(req, res) {
 
@@ -158,7 +165,7 @@ export async function postRegisterPage(req, res) {
         token: randomToken,
     });
 
-    const mjmlTemplate = await fs.readFile(path.join(import.meta.dirname, "..", 'email', 'verify-email.mjml'), 'utf-8');
+    const mjmlTemplate = await fs.readFile(path.join(__dirname, "..", 'email', 'verify-email.mjml'), 'utf-8');
 
     const filledTemplate = ejs.render(mjmlTemplate, { code: randomToken, link: verifyEmailLink });
 
@@ -218,38 +225,44 @@ export async function getVerifyEmailPage(req, res) {
 }
 
 export async function resendVerificationLink(req, res) {
+    try{
 
-    if (!req.user) { return res.redirect('/login') };
-
-    const user = await checkUserById(req.user.id);
-
-    if (!user || user.isEmailValid) { return res.redirect('/') };
-
-    const randomToken = createRandomToken();
-
-    await insertVerifyEmailToken({
-        userId: user.id,
-        token: randomToken
-    });
-
-    const verifyEmailLink = await createVerifyEmailLink({
-        email: user.email,
-        token: randomToken,
-    });
-
-    const mjmlTemplate = await fs.readFile(path.join(import.meta.dirname, "..", 'email', 'verify-email.mjml'), 'utf-8');
-
-    const filledTemplate = ejs.render(mjmlTemplate, { code: randomToken, link: verifyEmailLink });
-
-    const htmlOutput = mjml2html(filledTemplate).html;
-
-    sendEmail({
-        to: user.email,
-        subject: 'Verify your email',
-        html: htmlOutput,
-    });
-
-    return res.redirect('/verify-email');
+        if (!req.user) { return res.redirect('/login') };
+    
+        const user = await checkUserById(req.user.id);
+    
+        if (!user || user.isEmailValid) { return res.redirect('/') };
+    
+        const randomToken = createRandomToken();
+    
+        await insertVerifyEmailToken({
+            userId: user.id,
+            token: randomToken
+        });
+    
+        const verifyEmailLink = await createVerifyEmailLink({
+            email: user.email,
+            token: randomToken,
+        });
+    
+        const mjmlTemplate = await fs.readFile(path.join(__dirname, "..", 'email', 'verify-email.mjml'), 'utf-8');
+    
+        const filledTemplate = ejs.render(mjmlTemplate, { code: randomToken, link: verifyEmailLink });
+    
+        const htmlOutput = mjml2html(filledTemplate).html;
+    
+        sendEmail({
+            to: user.email,
+            subject: 'Verify your email',
+            html: htmlOutput,
+        });
+    
+        return res.redirect('/verify-email');
+    }
+    catch(error){
+        console.error('Error in resendVerificationLink:', error);
+        return res.redirect('/verify-email');
+    }
 
 }
 

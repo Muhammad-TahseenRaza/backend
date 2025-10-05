@@ -1,0 +1,6 @@
+node_modules
+.env
+db_data
+*.log
+Dockerfile.old
+docker-compose.override.yml

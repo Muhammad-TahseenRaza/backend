@@ -6,6 +6,9 @@ import jwt from 'jsonwebtoken';
 import { ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY } from '../config/constants.js';
 import crypto from 'crypto';
 
+import dotenv from "dotenv";
+dotenv.config();
+
 
 export async function checkUserByEmail(email){
 

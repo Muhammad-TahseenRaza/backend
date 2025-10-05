@@ -1,3 +1,7 @@
+import crypto from "crypto";
+if (!globalThis.crypto) {
+  globalThis.crypto = crypto.webcrypto;
+}
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
